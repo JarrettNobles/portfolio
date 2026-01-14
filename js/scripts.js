@@ -18,31 +18,60 @@
         return 'dark';
     };
 
-    // Set theme on page load
+    // Set theme
     const setTheme = (theme) => {
         if (theme === 'dark') {
             document.body.classList.add('dark-mode');
+            document.documentElement.classList.add('dark-mode');
         } else {
             document.body.classList.remove('dark-mode');
+            document.documentElement.classList.remove('dark-mode');
         }
         localStorage.setItem('theme', theme);
+        console.log('Theme set to:', theme);
     };
 
     // Toggle theme
-    const toggleTheme = () => {
+    const toggleTheme = (e) => {
+        if (e) e.preventDefault();
         const currentTheme = document.body.classList.contains('dark-mode') ? 'dark' : 'light';
         const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        console.log('Toggling from', currentTheme, 'to', newTheme);
         setTheme(newTheme);
     };
 
-    // Initialize theme on page load (before DOMContentLoaded to prevent flash)
-    setTheme(getTheme());
+    // Expose toggle function globally as backup
+    window.toggleTheme = toggleTheme;
 
-    // Add click event listener when DOM is ready
-    document.addEventListener('DOMContentLoaded', function() {
+    // Initialize theme on page load
+    const initTheme = () => {
+        const theme = getTheme();
+        setTheme(theme);
+    };
+
+    // Initialize immediately
+    initTheme();
+
+    // Setup event listener when DOM is ready
+    const setupToggle = () => {
         const themeToggle = document.getElementById('themeToggle');
+        console.log('Theme toggle button found:', !!themeToggle);
         if (themeToggle) {
+            // Remove any existing listeners
+            themeToggle.removeEventListener('click', toggleTheme);
+            // Add new listener
             themeToggle.addEventListener('click', toggleTheme);
+            console.log('Theme toggle listener attached');
         }
-    });
+    };
+
+    // Try multiple times to attach the listener
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', setupToggle);
+    } else {
+        setupToggle();
+    }
+
+    // Also try after window load as a fallback
+    window.addEventListener('load', setupToggle);
 })();
