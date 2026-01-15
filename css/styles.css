@@ -11881,6 +11881,67 @@ body.dark-mode .bg-light {
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
 }
 
+/* Resume Cards Enhancement */
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(59, 130, 246, 0.2) !important;
+}
+
+body.dark-mode .card {
+  background-color: #1e293b;
+  border-color: #334155;
+}
+
+body.dark-mode .card .bg-light {
+  background-color: #0f172a !important;
+}
+
+body.dark-mode .card .text-primary {
+  color: #60a5fa !important;
+}
+
+body.dark-mode .card .text-secondary {
+  color: #34d399 !important;
+}
+
+body.dark-mode .card .text-muted {
+  color: #94a3b8 !important;
+}
+
+body.dark-mode .card ul li {
+  color: #cbd5e1;
+}
+
+body.dark-mode .card strong {
+  color: #e2e8f0;
+}
+
+body.dark-mode .card .fw-bolder {
+  color: #e2e8f0;
+}
+
+body.dark-mode .card .small.fw-bolder {
+  color: #cbd5e1;
+}
+
+/* Better list styling in cards */
+.card ul {
+  padding-left: 1.25rem;
+}
+
+.card ul li {
+  line-height: 1.7;
+  color: #475569;
+}
+
+body.dark-mode .card ul li {
+  color: #cbd5e1;
+}
+
 /* Text Enhancements */
 .lead {
   font-size: 1.25rem;
